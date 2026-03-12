@@ -1,5 +1,39 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getBlogPosts } from "../lib/getBlogPosts";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dev-portfolio.vercel.app";
+const pageTitle = "Blog";
+const pageDescription = "Articles on web development, TypeScript, and practical Next.js patterns.";
+const pageImage = "https://placehold.co/1200x630/png?text=Blog";
+
+export const metadata: Metadata = {
+    title: pageTitle,
+    description: pageDescription,
+    alternates: {
+        canonical: "/blog",
+    },
+    openGraph: {
+        type: "website",
+        url: `${siteUrl}/blog`,
+        title: `${pageTitle} | My Developer Portfolio`,
+        description: pageDescription,
+        images: [
+            {
+                url: pageImage,
+                width: 1200,
+                height: 630,
+                alt: pageTitle,
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: `${pageTitle} | My Developer Portfolio`,
+        description: pageDescription,
+        images: [pageImage],
+    },
+};
 
 export default async function BlogPage() {
     const allPosts = await getBlogPosts();

@@ -1,8 +1,67 @@
+import type { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
 import Link from "next/link";
 import { getBlogPost } from "../../lib/getBlogPosts";
 import { notFound } from "next/navigation";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dev-portfolio.vercel.app";
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+    const { slug } = await params;
+    const canonicalPath = `/blog/${slug}`;
+
+    try {
+        const post = await getBlogPost(slug);
+        const title = post.metadata.title;
+        const description = post.metadata.excerpt;
+        const image = "https://placehold.co/1200x630/png?text=Blog+Post";
+
+        return {
+            title,
+            description,
+            alternates: {
+                canonical: canonicalPath,
+            },
+            openGraph: {
+                type: "article",
+                url: `${siteUrl}${canonicalPath}`,
+                title,
+                description,
+                images: [
+                    {
+                        url: image,
+                        width: 1200,
+                        height: 630,
+                        alt: title,
+                    },
+                ],
+            },
+            twitter: {
+                card: "summary_large_image",
+                title,
+                description,
+                images: [image],
+            },
+        };
+    } catch {
+        return {
+            title: "Post Not Found",
+            description: "The requested blog post could not be found.",
+            alternates: {
+                canonical: canonicalPath,
+            },
+            robots: {
+                index: false,
+                follow: false,
+            },
+        };
+    }
+}
 
 const mdxComponents = {
     h2: ({ children }: any) => (

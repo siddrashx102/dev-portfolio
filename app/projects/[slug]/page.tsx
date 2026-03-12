@@ -1,7 +1,62 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { projects } from "../../data/projects";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dev-portfolio.vercel.app";
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+    const { slug } = await params;
+    const canonicalPath = `/projects/${slug}`;
+    const project = projects.find((p) => p.slug === slug);
+
+    if (!project) {
+        return {
+            title: "Project Not Found",
+            description: "The requested project could not be found.",
+            alternates: {
+                canonical: canonicalPath,
+            },
+            robots: {
+                index: false,
+                follow: false,
+            },
+        };
+    }
+
+    return {
+        title: project.title,
+        description: project.description,
+        alternates: {
+            canonical: canonicalPath,
+        },
+        openGraph: {
+            type: "article",
+            url: `${siteUrl}${canonicalPath}`,
+            title: project.title,
+            description: project.description,
+            images: [
+                {
+                    url: project.imageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: project.title,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: project.title,
+            description: project.description,
+            images: [project.imageUrl],
+        },
+    };
+}
 
 export default async function ProjectDetailPage({
     params,
