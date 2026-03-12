@@ -7,9 +7,9 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
     return (
-        <div className="card bg-dark border border-secondary rounded-3 overflow-hidden h-100">
+        <div className="project-card card bg-dark border border-secondary rounded-3 overflow-hidden h-100">
             {/* Project image */}
-            <div style={{ position: "relative", height: "200px" }}>
+            <div className="project-card-image" style={{ position: "relative", height: "200px", overflow: "hidden" }}>
                 <Image
                     src={project.imageUrl}
                     alt={project.title}
@@ -38,7 +38,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-primary btn-sm"
+                        className="project-card-link btn btn-primary btn-sm"
                     >
                         Live Demo
                     </a>
@@ -48,7 +48,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                         href={project.repoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-outline-secondary btn-sm"
+                        className="project-card-link btn btn-outline-secondary btn-sm"
                     >
                         View Code
                     </a>
