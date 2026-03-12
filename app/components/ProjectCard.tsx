@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Project } from "../data/projects";
 
 interface ProjectCardProps {
@@ -20,7 +21,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
             {/* Card body */}
             <div className="card-body d-flex flex-column">
-                <h3 className="h5 fw-semibold text-light mb-2">{project.title}</h3>
+                <h3 className="h5 fw-semibold mb-2">
+                    <Link
+                        href={`/projects/${project.slug}`}
+                        className="text-light text-decoration-none"
+                    >
+                        {project.title}
+                    </Link>
+                </h3>
                 <div className="mb-2">
                     {project.tags.map((tag) => (
                         <span key={tag} className="badge bg-primary me-1">
