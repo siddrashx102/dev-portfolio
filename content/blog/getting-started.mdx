@@ -15,4 +15,36 @@ File-based routing, API routes, and built-in CSS support.
 ## Deployment
 Seamless integration with Vercel makes going live trivial.
 
-More posts coming soon!
+## Code Example
+
+Here's a simple React component:
+
+```jsx
+export default function HelloWorld() {
+  return (
+    <div className="container">
+      <h1>Hello, World!</h1>
+      <p>Welcome to Next.js with TypeScript</p>
+    </div>
+  );
+}
+```
+
+You can also use server components for data fetching:
+
+```typescript
+import { fetchUser } from "@/lib/api";
+
+export default async function UserProfile({ userId }: { userId: string }) {
+  const user = await fetchUser(userId);
+  
+  return (
+    <div>
+      <h1>{user.name}</h1>
+      <p>{user.bio}</p>
+    </div>
+  );
+}
+```
+
+That's it! More posts coming soon!
