@@ -1,10 +1,60 @@
 "use client";
 
+import { useState } from "react";
 import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
+interface FormData {
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+}
+
+const EMPTY_FORM: FormData = { name: "", email: "", subject: "", message: "" };
+
 export default function Contact() {
+    const [formData, setFormData] = useState<FormData>(EMPTY_FORM);
+    const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    function validate(): Partial<Record<keyof FormData, string>> {
+        const errs: Partial<Record<keyof FormData, string>> = {};
+        if (!formData.name.trim()) errs.name = "Please enter your name.";
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+            errs.email = "Please enter a valid email address.";
+        if (!formData.subject.trim()) errs.subject = "Please enter a subject.";
+        if (formData.message.trim().length < 10)
+            errs.message = "Message must be at least 10 characters.";
+        return errs;
+    }
+
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        const errs = validate();
+        if (Object.keys(errs).length > 0) {
+            setErrors(errs);
+            return;
+        }
+        setErrors({});
+        setIsSubmitting(true);
+        setTimeout(() => {
+            setIsSubmitting(false);
+            setSubmitted(true);
+            setFormData(EMPTY_FORM);
+        }, 1500);
+    }
+
+    function field(key: keyof FormData) {
+        return {
+            value: formData[key],
+            onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                setFormData({ ...formData, [key]: e.target.value }),
+        };
+    }
+
     return (
         <section id="contact" className="py-5 bg-dark">
             <div className="container py-4">
@@ -66,7 +116,14 @@ export default function Contact() {
                     {/* Right column — contact form */}
                     <div className="col-lg-7">
                         <div className="border border-secondary rounded-4 p-4 bg-dark">
-                            <form noValidate>
+                            {submitted ? (
+                                <div className="text-center py-5">
+                                    <div className="text-success fs-1 mb-3">✓</div>
+                                    <h3 className="text-light">Message Sent!</h3>
+                                    <p className="text-secondary">I&apos;ll get back to you as soon as possible.</p>
+                                </div>
+                            ) : (
+                            <form noValidate onSubmit={handleSubmit}>
                                 <div className="mb-3">
                                     <label htmlFor="name" className="form-label text-light">
                                         Name
@@ -74,14 +131,13 @@ export default function Contact() {
                                     <input
                                         type="text"
                                         id="name"
-                                        name="name"
                                         className="form-control bg-dark text-light border-secondary"
                                         placeholder="John Doe"
-                                        required
+                                        {...field("name")}
                                     />
-                                    <div className="invalid-feedback">
-                                        Please enter your name.
-                                    </div>
+                                    {errors.name && (
+                                        <div className="text-danger small mt-1">{errors.name}</div>
+                                    )}
                                 </div>
 
                                 <div className="mb-3">
@@ -91,14 +147,13 @@ export default function Contact() {
                                     <input
                                         type="email"
                                         id="email"
-                                        name="email"
                                         className="form-control bg-dark text-light border-secondary"
                                         placeholder="john@example.com"
-                                        required
+                                        {...field("email")}
                                     />
-                                    <div className="invalid-feedback">
-                                        Please enter a valid email address.
-                                    </div>
+                                    {errors.email && (
+                                        <div className="text-danger small mt-1">{errors.email}</div>
+                                    )}
                                 </div>
 
                                 <div className="mb-3">
@@ -108,14 +163,13 @@ export default function Contact() {
                                     <input
                                         type="text"
                                         id="subject"
-                                        name="subject"
                                         className="form-control bg-dark text-light border-secondary"
                                         placeholder="Project inquiry"
-                                        required
+                                        {...field("subject")}
                                     />
-                                    <div className="invalid-feedback">
-                                        Please enter a subject.
-                                    </div>
+                                    {errors.subject && (
+                                        <div className="text-danger small mt-1">{errors.subject}</div>
+                                    )}
                                 </div>
 
                                 <div className="mb-4">
@@ -124,21 +178,25 @@ export default function Contact() {
                                     </label>
                                     <textarea
                                         id="message"
-                                        name="message"
                                         rows={5}
                                         className="form-control bg-dark text-light border-secondary"
                                         placeholder="Tell me about your project..."
-                                        required
+                                        {...field("message")}
                                     />
-                                    <div className="invalid-feedback">
-                                        Please enter your message.
-                                    </div>
+                                    {errors.message && (
+                                        <div className="text-danger small mt-1">{errors.message}</div>
+                                    )}
                                 </div>
 
-                                <button type="submit" className="btn btn-primary w-100">
-                                    Send Message
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary w-100"
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? "Sending..." : "Send Message"}
                                 </button>
                             </form>
+                            )}
                         </div>
                     </div>
                 </div>
