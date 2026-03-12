@@ -35,6 +35,14 @@ a {
   text-decoration: none;
 }
 
+.skill-card {
+  transition: border-color 0.2s ease;
+}
+
+.skill-card:hover {
+  border-color: var(--bs-primary) !important;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
