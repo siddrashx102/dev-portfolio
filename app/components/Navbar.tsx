@@ -33,6 +33,9 @@ export default function Navbar() {
                         <Link href="/projects" className="nav-link text-light">
                             Projects
                         </Link>
+                        <Link href="/blog" className="nav-link text-light">
+                            Blog
+                        </Link>
                         <Link href="/contact" className="nav-link text-light">
                             Contact
                         </Link>
