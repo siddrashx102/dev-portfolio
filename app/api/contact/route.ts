@@ -1,4 +1,13 @@
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export async function POST(request: Request) {
+    if (!process.env.RESEND_API_KEY || !process.env.CONTACT_EMAIL) {
+        console.error("[Contact API] Missing RESEND_API_KEY or CONTACT_EMAIL env vars");
+        return Response.json({ error: "Server configuration error" }, { status: 500 });
+    }
+
     let body: unknown;
     try {
         body = await request.json();
@@ -23,6 +32,25 @@ export async function POST(request: Request) {
     }
 
     console.log("[Contact API]", { name, email, subject });
+
+    try {
+        await resend.emails.send({
+            from: "Portfolio Contact <onboarding@resend.dev>",
+            to: process.env.CONTACT_EMAIL,
+            subject: `New contact form submission: ${subject}`,
+            html: `
+  <h2>New Contact Form Submission</h2>
+  <p><strong>Name:</strong> ${name}</p>
+  <p><strong>Email:</strong> ${email}</p>
+  <p><strong>Subject:</strong> ${subject}</p>
+  <p><strong>Message:</strong></p>
+  <p>${(message as string).replace(/\n/g, "<br>")}</p>
+`,
+        });
+    } catch (err) {
+        console.error("[Contact API] Failed to send email:", err);
+        return Response.json({ error: "Failed to send email. Please try again later." }, { status: 500 });
+    }
 
     return Response.json({ success: true, message: "Message received!" });
 }
