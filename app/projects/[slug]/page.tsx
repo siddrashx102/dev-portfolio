@@ -3,12 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { projects } from "../../data/projects";
 
-export default function ProjectDetailPage({
+export default async function ProjectDetailPage({
     params,
 }: {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }) {
-    const project = projects.find((p) => p.slug === params.slug);
+    const { slug } = await params;
+    const project = projects.find((p) => p.slug === slug);
 
     if (!project) {
         notFound();
@@ -17,7 +18,6 @@ export default function ProjectDetailPage({
     return (
         <article className="py-5">
             <div className="container py-4">
-                {/* Back link */}
                 <Link href="/#projects" className="text-secondary text-decoration-none small d-inline-block mb-4">
                     ← Back to Projects
                 </Link>
@@ -75,21 +75,24 @@ export default function ProjectDetailPage({
 
                 {/* Two-column content */}
                 <div className="row g-4">
-                    {/* Left: overview text */}
+                    {/* Left: overview + features */}
                     <div className="col-lg-8">
                         <h2 className="h4 fw-bold text-light mb-3">Project Overview</h2>
-                        <p className="text-secondary">
-                            This project was built to solve a real-world problem by combining modern
-                            web technologies with thoughtful UX design. From initial planning through
-                            deployment, every decision was made with performance, accessibility, and
-                            maintainability in mind.
-                        </p>
-                        <p className="text-secondary">
-                            The architecture emphasises clean separation of concerns, type-safe data
-                            contracts, and a component model that scales as requirements grow. Key
-                            challenges included optimising asset delivery and ensuring a seamless
-                            experience across all screen sizes.
-                        </p>
+                        {project.overview.map((paragraph) => (
+                            <p key={paragraph} className="text-secondary">
+                                {paragraph}
+                            </p>
+                        ))}
+
+                        <h2 className="h4 fw-bold text-light mt-4 mb-3">Key Features</h2>
+                        <ul className="list-unstyled d-flex flex-column gap-2 mb-0">
+                            {project.features.map((feature) => (
+                                <li key={feature} className="text-secondary d-flex gap-2">
+                                    <span className="text-primary mt-1">▸</span>
+                                    {feature}
+                                </li>
+                            ))}
+                        </ul>
                     </div>
 
                     {/* Right: info sidebar */}
@@ -99,7 +102,15 @@ export default function ProjectDetailPage({
                             <ul className="list-unstyled mb-0 text-secondary small d-flex flex-column gap-2">
                                 <li>
                                     <span className="text-light fw-semibold">Slug: </span>
-                                    {params.slug}
+                                    {slug}
+                                </li>
+                                <li>
+                                    <span className="text-light fw-semibold">Year: </span>
+                                    {project.year}
+                                </li>
+                                <li>
+                                    <span className="text-light fw-semibold">Role: </span>
+                                    {project.role}
                                 </li>
                                 <li>
                                     <span className="text-light fw-semibold">Stack count: </span>
