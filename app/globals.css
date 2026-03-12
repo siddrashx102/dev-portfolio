@@ -79,6 +79,13 @@ a {
   box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.4);
 }
 
+.form-control:focus {
+  background-color: #212529;
+  border-color: var(--bs-primary);
+  color: #fff;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
