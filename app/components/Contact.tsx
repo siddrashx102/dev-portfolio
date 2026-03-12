@@ -19,6 +19,7 @@ export default function Contact() {
     const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [generalError, setGeneralError] = useState("");
 
     function validate(): Partial<Record<keyof FormData, string>> {
         const errs: Partial<Record<keyof FormData, string>> = {};
@@ -31,7 +32,7 @@ export default function Contact() {
         return errs;
     }
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const errs = validate();
         if (Object.keys(errs).length > 0) {
@@ -39,12 +40,26 @@ export default function Contact() {
             return;
         }
         setErrors({});
+        setGeneralError("");
         setIsSubmitting(true);
-        setTimeout(() => {
-            setIsSubmitting(false);
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                setGeneralError(data?.error ?? "Something went wrong. Please try again.");
+                return;
+            }
             setSubmitted(true);
             setFormData(EMPTY_FORM);
-        }, 1500);
+        } catch {
+            setGeneralError("Network error. Please check your connection and try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     }
 
     function field(key: keyof FormData) {
@@ -123,79 +138,82 @@ export default function Contact() {
                                     <p className="text-secondary">I&apos;ll get back to you as soon as possible.</p>
                                 </div>
                             ) : (
-                            <form noValidate onSubmit={handleSubmit}>
-                                <div className="mb-3">
-                                    <label htmlFor="name" className="form-label text-light">
-                                        Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        className="form-control bg-dark text-light border-secondary"
-                                        placeholder="John Doe"
-                                        {...field("name")}
-                                    />
-                                    {errors.name && (
-                                        <div className="text-danger small mt-1">{errors.name}</div>
-                                    )}
-                                </div>
+                                <form noValidate onSubmit={handleSubmit}>
+                                    <div className="mb-3">
+                                        <label htmlFor="name" className="form-label text-light">
+                                            Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            className="form-control bg-dark text-light border-secondary"
+                                            placeholder="John Doe"
+                                            {...field("name")}
+                                        />
+                                        {errors.name && (
+                                            <div className="text-danger small mt-1">{errors.name}</div>
+                                        )}
+                                    </div>
 
-                                <div className="mb-3">
-                                    <label htmlFor="email" className="form-label text-light">
-                                        Email
-                                    </label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        className="form-control bg-dark text-light border-secondary"
-                                        placeholder="john@example.com"
-                                        {...field("email")}
-                                    />
-                                    {errors.email && (
-                                        <div className="text-danger small mt-1">{errors.email}</div>
-                                    )}
-                                </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="email" className="form-label text-light">
+                                            Email
+                                        </label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            className="form-control bg-dark text-light border-secondary"
+                                            placeholder="john@example.com"
+                                            {...field("email")}
+                                        />
+                                        {errors.email && (
+                                            <div className="text-danger small mt-1">{errors.email}</div>
+                                        )}
+                                    </div>
 
-                                <div className="mb-3">
-                                    <label htmlFor="subject" className="form-label text-light">
-                                        Subject
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="subject"
-                                        className="form-control bg-dark text-light border-secondary"
-                                        placeholder="Project inquiry"
-                                        {...field("subject")}
-                                    />
-                                    {errors.subject && (
-                                        <div className="text-danger small mt-1">{errors.subject}</div>
-                                    )}
-                                </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="subject" className="form-label text-light">
+                                            Subject
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="subject"
+                                            className="form-control bg-dark text-light border-secondary"
+                                            placeholder="Project inquiry"
+                                            {...field("subject")}
+                                        />
+                                        {errors.subject && (
+                                            <div className="text-danger small mt-1">{errors.subject}</div>
+                                        )}
+                                    </div>
 
-                                <div className="mb-4">
-                                    <label htmlFor="message" className="form-label text-light">
-                                        Message
-                                    </label>
-                                    <textarea
-                                        id="message"
-                                        rows={5}
-                                        className="form-control bg-dark text-light border-secondary"
-                                        placeholder="Tell me about your project..."
-                                        {...field("message")}
-                                    />
-                                    {errors.message && (
-                                        <div className="text-danger small mt-1">{errors.message}</div>
-                                    )}
-                                </div>
+                                    <div className="mb-4">
+                                        <label htmlFor="message" className="form-label text-light">
+                                            Message
+                                        </label>
+                                        <textarea
+                                            id="message"
+                                            rows={5}
+                                            className="form-control bg-dark text-light border-secondary"
+                                            placeholder="Tell me about your project..."
+                                            {...field("message")}
+                                        />
+                                        {errors.message && (
+                                            <div className="text-danger small mt-1">{errors.message}</div>
+                                        )}
+                                    </div>
 
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary w-100"
-                                    disabled={isSubmitting}
-                                >
-                                    {isSubmitting ? "Sending..." : "Send Message"}
-                                </button>
-                            </form>
+                                    {generalError && (
+                                        <div className="alert alert-danger py-2 small mb-3">{generalError}</div>
+                                    )}
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary w-100"
+                                        disabled={isSubmitting}
+                                    >
+                                        {isSubmitting ? "Sending..." : "Send Message"}
+                                    </button>
+                                </form>
                             )}
                         </div>
                     </div>
