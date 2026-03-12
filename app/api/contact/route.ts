@@ -31,7 +31,7 @@ export async function POST(request: Request) {
         return Response.json({ error: "Validation failed", fields: errors }, { status: 400 });
     }
 
-    console.log("[Contact API]", { name, email, subject });
+    console.log("[Contact API] Email-only submission", { name, email, subject });
 
     try {
         await resend.emails.send({
@@ -52,5 +52,5 @@ export async function POST(request: Request) {
         return Response.json({ error: "Failed to send email. Please try again later." }, { status: 500 });
     }
 
-    return Response.json({ success: true, message: "Message received!" });
+    return Response.json({ success: true, message: "Message emailed successfully." });
 }
