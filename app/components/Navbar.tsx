@@ -27,7 +27,7 @@ export default function Navbar() {
                 {/* Nav links — collapsible on mobile, always visible on desktop */}
                 <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`}>
                     <div className="navbar-nav ms-auto d-lg-flex gap-3">
-                        <Link href="/about" className="nav-link text-light">
+                        <Link href="/#about" className="nav-link text-light">
                             About
                         </Link>
                         <Link href="/projects" className="nav-link text-light">
@@ -36,7 +36,7 @@ export default function Navbar() {
                         <Link href="/blog" className="nav-link text-light">
                             Blog
                         </Link>
-                        <Link href="/contact" className="nav-link text-light">
+                        <Link href="/#contact" className="nav-link text-light">
                             Contact
                         </Link>
                     </div>
