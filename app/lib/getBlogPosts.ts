@@ -12,7 +12,7 @@ export interface BlogPostMetadata {
 
 export async function getBlogPosts() {
     const files = fs.readdirSync(blogDir).filter((f) => f.endsWith(".mdx"));
-    return files.map((file) => {
+    const posts = files.map((file) => {
         const raw = fs.readFileSync(path.join(blogDir, file), "utf-8");
         const { data } = matter(raw);
         return {
@@ -20,6 +20,11 @@ export async function getBlogPosts() {
             metadata: data as BlogPostMetadata,
         };
     });
+    return posts.sort(
+        (a, b) =>
+            new Date(b.metadata.date).getTime() -
+            new Date(a.metadata.date).getTime()
+    );
 }
 
 export async function getBlogPost(slug: string) {
