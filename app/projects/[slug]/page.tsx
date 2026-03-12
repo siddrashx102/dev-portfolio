@@ -70,6 +70,7 @@ export default async function ProjectDetailPage({
                         fill
                         style={{ objectFit: "cover" }}
                         priority
+                        sizes="(max-width: 768px) 100vw, 90vw"
                     />
                 </div>
 

@@ -23,6 +23,7 @@ export default function About() {
                             width={400}
                             height={400}
                             className="img-fluid rounded-4"
+                            priority
                         />
                     </div>
 
