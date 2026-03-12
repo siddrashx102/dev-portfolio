@@ -90,10 +90,10 @@ export default function Contact() {
                                 <div>
                                     <p className="text-secondary small mb-1">Email</p>
                                     <a
-                                        href="mailto:hello@example.com"
+                                        href="mailto:siddrashid1998@outlook.com"
                                         className="text-light text-decoration-none"
                                     >
-                                        hello@example.com
+                                        siddrashid1998@outlook.com
                                     </a>
                                 </div>
                             </li>
@@ -102,12 +102,12 @@ export default function Contact() {
                                 <div>
                                     <p className="text-secondary small mb-1">GitHub</p>
                                     <a
-                                        href="https://github.com"
+                                        href="https://github.com/siddrashx102"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-light text-decoration-none"
                                     >
-                                        github.com/yourusername
+                                        github.com/siddrashx102
                                     </a>
                                 </div>
                             </li>
@@ -116,12 +116,12 @@ export default function Contact() {
                                 <div>
                                     <p className="text-secondary small mb-1">LinkedIn</p>
                                     <a
-                                        href="https://linkedin.com"
+                                        href="https://www.linkedin.com/in/mohdrashidsiddiqui/"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-light text-decoration-none"
                                     >
-                                        linkedin.com/in/yourusername
+                                        linkedin.com/in/mohdrashidsiddiqui
                                     </a>
                                 </div>
                             </li>
@@ -147,7 +147,7 @@ export default function Contact() {
                                             type="text"
                                             id="name"
                                             className="form-control bg-dark text-light border-secondary"
-                                            placeholder="John Doe"
+                                            placeholder="Mohd Rashid Siddiqui"
                                             {...field("name")}
                                         />
                                         {errors.name && (
@@ -163,7 +163,7 @@ export default function Contact() {
                                             type="email"
                                             id="email"
                                             className="form-control bg-dark text-light border-secondary"
-                                            placeholder="john@example.com"
+                                            placeholder="siddrashid1998@outlook.com"
                                             {...field("email")}
                                         />
                                         {errors.email && (

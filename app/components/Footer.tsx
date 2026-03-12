@@ -9,8 +9,8 @@ export default function Footer() {
                 <div className="row g-4">
                     {/* Brand & tagline */}
                     <div className="col-md-4">
-                        <span className="fw-bold text-light fs-5">JD.dev</span>
-                        <p className="mt-1 mb-0 small">Building things for the web.</p>
+                        <span className="fw-bold text-light fs-5">Rashid.dev</span>
+                        <p className="mt-1 mb-0 small">Backend systems and full-stack web apps.</p>
                     </div>
 
                     {/* Quick nav */}
@@ -29,22 +29,22 @@ export default function Footer() {
                         <ul className="list-unstyled mb-0 d-flex flex-column gap-1">
                             <li>
                                 <a
-                                    href="https://github.com"
+                                    href="https://github.com/siddrashx102"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-secondary text-decoration-none"
                                 >
-                                    🐙 GitHub
+                                    GitHub
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    href="https://linkedin.com"
+                                    href="https://www.linkedin.com/in/mohdrashidsiddiqui/"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-secondary text-decoration-none"
                                 >
-                                    💼 LinkedIn
+                                    LinkedIn
                                 </a>
                             </li>
                         </ul>
@@ -54,7 +54,7 @@ export default function Footer() {
 
             {/* Copyright bar */}
             <div className="border-top border-secondary py-3 text-center small">
-                © {year} Your Name. All rights reserved.
+                © {year} Mohd Rashid Siddiqui. All rights reserved.
             </div>
         </footer>
     );

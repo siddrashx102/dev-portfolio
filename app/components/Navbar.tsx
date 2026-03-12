@@ -10,7 +10,7 @@ export default function Navbar() {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary">
             <div className="container">
                 <Link href="/" className="navbar-brand fw-bold">
-                    JD.dev
+                    Rashid.dev
                 </Link>
 
                 {/* Hamburger button — visible only on small screens */}

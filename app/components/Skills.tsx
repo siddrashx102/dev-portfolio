@@ -1,11 +1,16 @@
 import {
     SiReact,
-    SiNextdotjs,
-    SiTypescript,
+    SiExpress,
+    SiMongodb,
     SiNodedotjs,
-    SiPostgresql,
+    SiJavascript,
+    SiHtml5,
+    SiCss,
+    SiJquery,
+    SiPassport,
     SiGit,
-    SiDocker,
+    SiPython,
+    SiOpenjdk,
     SiBootstrap,
 } from "react-icons/si";
 import type { IconType } from "react-icons";
@@ -17,13 +22,18 @@ interface Skill {
 }
 
 const skills: Skill[] = [
+    { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+    { name: "Express.js", icon: SiExpress, color: "#ffffff" },
+    { name: "Passport.js", icon: SiPassport, color: "#34E27A" },
     { name: "React", icon: SiReact, color: "#61DAFB" },
-    { name: "Next.js", icon: SiNextdotjs, color: "#ffffff" },
-    { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
     { name: "Node.js", icon: SiNodedotjs, color: "#6CC24A" },
-    { name: "PostgreSQL", icon: SiPostgresql, color: "#336791" },
+    { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+    { name: "HTML", icon: SiHtml5, color: "#E34F26" },
+    { name: "CSS", icon: SiCss, color: "#1572B6" },
+    { name: "jQuery", icon: SiJquery, color: "#0769AD" },
     { name: "Git", icon: SiGit, color: "#F05032" },
-    { name: "Docker", icon: SiDocker, color: "#2496ED" },
+    { name: "Python", icon: SiPython, color: "#3776AB" },
+    { name: "Java", icon: SiOpenjdk, color: "#EA2D2E" },
     { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3" },
 ];
 

@@ -5,24 +5,25 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dev-portfolio.vercel.app";
-const defaultTitle = "My Developer Portfolio";
-const defaultDescription = "A developer portfolio built with Next.js, TypeScript, and Bootstrap.";
-const defaultImage = "https://placehold.co/1200x630/png?text=My+Developer+Portfolio";
+const defaultTitle = "Mohd Rashid Siddiqui";
+const defaultDescription = "Backend developer with 3+ years of experience building reliable enterprise applications and full-stack web products.";
+const defaultImage = "https://placehold.co/1200x630/png?text=Mohd+Rashid+Siddiqui";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: defaultTitle,
-    template: "%s | My Developer Portfolio",
+    template: "%s | Mohd Rashid Siddiqui",
   },
   description: defaultDescription,
   keywords: [
     "developer portfolio",
-    "Next.js portfolio",
-    "TypeScript developer",
-    "frontend engineer",
+    "backend developer",
+    "Node.js",
+    "MERN stack",
+    "Express.js",
     "full-stack developer",
-    "web development",
+    "software engineer",
   ],
   alternates: {
     canonical: "/",

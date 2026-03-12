@@ -30,17 +30,19 @@ export default function About() {
                     {/* Right: bio + stats */}
                     <div className="col-md-7">
                         <p className="text-secondary fs-5">
-                            Hi! I&apos;m John — a full-stack developer with a passion for building
-                            clean, performant web experiences. I specialize in React, Next.js, and
-                            Node.js, and I love turning complex problems into elegant solutions.
+                            I&apos;m Mohd Rashid Siddiqui, a backend developer with 3+ years of
+                            experience at Tata Consultancy Services (TCS), where I built, tested,
+                            and maintained enterprise software using agile methodologies.
                         </p>
                         <p className="text-secondary fs-5">
-                            When I&apos;m not coding, you&apos;ll find me contributing to open-source
-                            projects, writing technical articles, or exploring the outdoors.
+                            I focus on Node.js and MERN stack development, RESTful APIs, and
+                            database performance optimization. I reduced SQL query runtime from
+                            5 seconds to 2 seconds in the HxG NEAM application and also automated
+                            manual PL/SQL data-entry workflows.
                         </p>
                         <p className="text-secondary fs-5 mb-4">
-                            I&apos;m always open to new opportunities and interesting collaborations —
-                            feel free to reach out!
+                            I enjoy shipping practical products, collaborating with cross-functional
+                            teams, and building systems that are both scalable and maintainable.
                         </p>
 
                         {/* Stat badges */}
@@ -53,14 +55,14 @@ export default function About() {
                             </div>
                             <div className="col-4">
                                 <div className="border border-secondary rounded-3 p-3">
-                                    <div className="fs-4 fw-bold text-primary">20+</div>
-                                    <div className="text-secondary small">Projects Completed</div>
+                                    <div className="fs-4 fw-bold text-primary">1</div>
+                                    <div className="text-secondary small">Enterprise Role</div>
                                 </div>
                             </div>
                             <div className="col-4">
                                 <div className="border border-secondary rounded-3 p-3">
-                                    <div className="fs-4 fw-bold text-primary">10+</div>
-                                    <div className="text-secondary small">Happy Clients</div>
+                                    <div className="fs-4 fw-bold text-primary">50%</div>
+                                    <div className="text-secondary small">Productivity Gain</div>
                                 </div>
                             </div>
                         </div>
